@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conteúdo VIP Adulto</title>
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Arial', sans-serif; background: linear-gradient(135deg, #1f1f1f, #111); color:#fff; text-align:center; padding:20px; }
+    h1,h2,h3 { margin:20px 0; font-weight:bold; }
+    
+    /* Botões */
+    .button {
+        background-color: #ff0066;
+        border: none;
+        color: white;
+        padding: 15px 35px;
+        font-size: 18px;
+        margin: 15px;
+        cursor: pointer;
+        border-radius: 12px;
+        transition: 0.3s;
+        font-weight: bold;
+    }
+    .button:hover { background-color: #ff3399; transform: scale(1.05); }
+
+    /* Galeria de imagens */
+    .gallery { display:flex; flex-wrap:wrap; justify-content:center; margin:20px 0; }
+    .gallery img { width:200px; height:200px; object-fit:cover; margin:10px; border-radius:15px; transition: transform 0.3s, box-shadow 0.3s; cursor:pointer; }
+    .gallery img:hover { transform:scale(1.1); box-shadow:0 0 20px #ff0066; }
+
+    /* VIP */
+    #vipContent { display:none; animation:fadeIn 1s ease-in-out; }
+    @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+    .pix-section {
+        margin-top:20px;
+        background:#222;
+        padding:20px;
+        border-radius:15px;
+        display:inline-block;
+        max-width:400px;
+        text-align:left;
+    }
+    .pix-section p { margin:10px 0; }
+    .pix-section textarea {
+        width:100%;
+        height:80px;
+        border-radius:8px;
+        padding:10px;
+        margin-top:5px;
+        resize:none;
+        font-size:14px;
+        background:#111;
+        color:#fff;
+        border:1px solid #555;
+    }
+
+    /* Overlay idade */
+    #ageOverlay {
+        position:fixed;
+        top:0; left:0; width:100%; height:100%;
+        background:rgba(0,0,0,0.95);
+        display:flex; flex-direction:column; justify-content:center; align-items:center;
+        z-index:9999; color:#fff;
+    }
+    #ageOverlay h2 { margin-bottom:20px; }
+    #blockedMsg {
+        display:none;
+        margin-top:20px;
+        color:#ff4444;
+        font-weight:bold;
+        font-size:18px;
+    }
+</style>
+</head>
+<body>
+
+<!-- Overlay de idade -->
+<div id="ageOverlay">
+    <h2>Você tem mais de 18 anos?</h2>
+    <button class="button" id="ageYes">Sim, tenho 18+</button>
+    <button class="button" id="ageNo">Não, sou menor</button>
+</div>
+
+<h1>Bem-vindo(a) ao Conteúdo VIP Adulto</h1>
+<h2>Veja algumas imagens GRATUITAS 👇</h2>
+
+<div class="gallery" id="gratuitoGallery">
+    <img src="https://vago-sc.com/tlgrm/foto1.jpg" alt="Gratuito 1">
+    <img src="https://vago-sc.com/tlgrm/foto2.jpg" alt="Gratuito 2">
+    <img src="https://vago-sc.com/tlgrm/foto4.jpg" alt="Gratuito 3">
+</div>
+
+<button class="button" id="vipBtn">💎 Quero acessar o conteúdo VIP</button>
+
+<div id="vipContent">
+    <h2>Conteúdo VIP 💎</h2>
+
+    <div class="pix-section">
+        <h3>🔥 Conteúdo completo desbloqueado!</h3>
+        <p>Para acessar, faça o pagamento via PIX:</p>
+        <p><strong>Chave PIX:</strong> d2c16fd6-1350-4829-adc1-0d45fcf8df21</p>
+        <p><strong>Valor:</strong> R$ 7,99</p>
+        <p><strong>Nome:</strong> JULIA KIECKHOEFEL DOS SANTOS</p>
+        <p><strong>Cidade:</strong> CAMBORIU</p>
+        <p><strong>PIX Copia e Cola:</strong></p>
+        <textarea id="pixCode" readonly>00020126580014BR.GOV.BCB.PIX0136d2c16fd6-1350-4829-adc1-0d45fcf8df2152040000530398654047.995802BR5925JULIA KIECKHOEFEL DOS SAN6008CAMBORIU62070503***63040E77</textarea>
+        <button class="button" onclick="copyPix()">📋 Copiar Código PIX</button>
+    </div>
+</div>
+
+<div id="blockedMsg">🚫 Você precisa ser maior de 18 anos para acessar este conteúdo.</div>
+
+<script>
+    const overlay = document.getElementById("ageOverlay");
+    const blockedMsg = document.getElementById("blockedMsg");
+    const vipContent = document.getElementById("vipContent");
+    const vipBtn = document.getElementById("vipBtn");
+    const gratuitoGallery = document.getElementById("gratuitoGallery");
+
+    let allowed = false; // Bloqueio inicial
+
+    document.getElementById("ageYes").addEventListener("click", function(){
+        overlay.style.display = "none";
+        allowed = true;
+    });
+
+    document.getElementById("ageNo").addEventListener("click", function(){
+        overlay.style.display = "none";
+        blockedMsg.style.display = "block";
+        vipBtn.disabled = true;
+        gratuitoGallery.style.display = "none"; // Oculta imagens gratuitas
+    });
+
+    vipBtn.addEventListener("click", function(){
+        if(!allowed){
+            alert("Você precisa ter mais de 18 anos para acessar o VIP.");
+            return;
+        }
+        vipContent.style.display = "block";
+        window.scrollTo({ top: vipContent.offsetTop, behavior: 'smooth' });
+    });
+
+    function copyPix() {
+        const pixText = document.getElementById("pixCode");
+        pixText.select();
+        pixText.setSelectionRange(0, 99999); 
+        navigator.clipboard.writeText(pixText.value);
+        alert("Código PIX copiado!");
+    }
+</script>
+
+</body>
+</html>
